@@ -1,0 +1,10 @@
+CommonLib/bin
+CommonLib/obj
+TestCommonLib/bin
+TestCommonLib/obj
+TestResults
+TestResults/*
+*.user
+*.suo
+_ReSharper.*
+*.sln.cache
