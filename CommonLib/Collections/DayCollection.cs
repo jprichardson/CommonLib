@@ -14,6 +14,8 @@ namespace CommonLib.Collections
 
 		public IEnumerable<DateTime> Days { get { return this.Keys; } }
 
+		public List<T> this[int i] { get { return this.GetItems(i); } }
+
 		public void Add(DateTime dt, T obj){
 			var startOfDay = DateTimeUtil.GetStartOfDay(dt);
 			if (!this.ContainsKey(startOfDay))
@@ -26,7 +28,7 @@ namespace CommonLib.Collections
 			var count = 0;
 			List<T> items = null;
 			foreach (var day in this.Keys) {
-				if (count < index) {
+				if (count <= index) {
 					items = this[day];
 					++count;
 				}
