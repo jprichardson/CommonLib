@@ -56,6 +56,7 @@
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Utility\BenchmarkTimer.cs" />
     <Compile Include="Utility\DateTimeUtil.cs" />
+    <Compile Include="Utility\FileUtil.cs" />
     <Compile Include="Utility\ObjectUtil.cs" />
     <Compile Include="Utility\ProcessUtil.cs" />
     <Compile Include="Utility\StringUtil.cs" />

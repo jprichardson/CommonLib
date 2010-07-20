@@ -24,7 +24,7 @@ namespace CommonLib.Utility
 			T ret = (T)bf.Deserialize(s);
 			s.Close();
 			return ret;
-		} 
+		}
 
 		public static T ReadFromXmlFile<T>(string file) {
 			XmlSerializer xs = new XmlSerializer(typeof(T));
@@ -47,4 +47,5 @@ namespace CommonLib.Utility
 			xs.Serialize(sw, obj);
 			sw.Close();
 		}
+	}
 }
