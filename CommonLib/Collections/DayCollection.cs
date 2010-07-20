@@ -14,7 +14,7 @@ namespace CommonLib.Collections
 
 		public IEnumerable<DateTime> Days { get { return this.Keys; } }
 
-		public List<T> this[int i] { get { return this.GetItems(i); } }
+		public List<T> this[int index] { get { return this.GetItems(index); } }
 
 		public void Add(DateTime dt, T obj){
 			var startOfDay = DateTimeUtil.GetStartOfDay(dt);
