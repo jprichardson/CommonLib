@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 using CommonLib.Utility;
 
 namespace CommonLib.Collections
 {
-	public class DayCollection<T> : SortedDictionary<DateTime, List<T>>
+	[Serializable]
+	public class DayCollection<T> : SortedDictionary<DateTime, List<T>>//, ISerializable
 	{
 		public DayCollection() {}
+
+		//protected DayCollection(SerializationInfo info, StreamingContext context) /*: base(info, context)*/ { }
 
 		public int DayCount { get { return this.Keys.Count; } }
 
@@ -38,5 +42,7 @@ namespace CommonLib.Collections
 
 			return items;
 		}
+
+		//public virtual void GetObjectData(SerializationInfo info, StreamingContext context) { /*base.GetObjectData(info, context);*/ } //only needed if i have additional data to serialize
 	}
 }

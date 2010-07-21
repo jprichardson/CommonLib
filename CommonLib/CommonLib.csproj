@@ -46,6 +46,7 @@
     <Compile Include="Collections\DayCollection.cs" />
     <Compile Include="Extensions\DateEx.cs" />
     <Compile Include="Date\DayRange.cs" />
+    <Compile Include="Extensions\ObjectEx.cs" />
     <Compile Include="Extensions\RandomEx.cs" />
     <Compile Include="Mvvm\ModelBase.cs" />
     <Compile Include="Numerical\Data.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="Utility\BenchmarkTimer.cs" />
     <Compile Include="Utility\DateTimeUtil.cs" />
     <Compile Include="Utility\FileUtil.cs" />
-    <Compile Include="Utility\ObjectUtil.cs" />
     <Compile Include="Utility\ProcessUtil.cs" />
     <Compile Include="Utility\StringUtil.cs" />
   </ItemGroup>
