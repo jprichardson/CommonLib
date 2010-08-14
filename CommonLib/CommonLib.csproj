@@ -44,11 +44,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\DayCollection.cs" />
+    <Compile Include="Collections\SortedListDictionary.cs" />
     <Compile Include="Extensions\DateEx.cs" />
     <Compile Include="Date\DayRange.cs" />
     <Compile Include="Extensions\ObjectEx.cs" />
     <Compile Include="Extensions\RandomEx.cs" />
+    <Compile Include="Mvvm\Progress\ProgressViewModel.cs" />
     <Compile Include="Mvvm\ModelBase.cs" />
+    <Compile Include="Mvvm\Progress\ProgressTaskViewModel.cs" />
+    <Compile Include="Mvvm\Progress\ProgressWorkerViewModel.cs" />
     <Compile Include="Numerical\Data.cs" />
     <Compile Include="Numerical\Matrix.cs" />
     <Compile Include="Numerical\PointD.cs" />

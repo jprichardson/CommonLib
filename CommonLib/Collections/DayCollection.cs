@@ -14,26 +14,26 @@ namespace CommonLib.Collections
 
 		//protected DayCollection(SerializationInfo info, StreamingContext context) /*: base(info, context)*/ { }
 
-		public int DayCount { get { return this.Keys.Count; } }
+		public int DayCount { get { return base.Keys.Count; } }
 
-		public IEnumerable<DateTime> Days { get { return this.Keys; } }
+		public IEnumerable<DateTime> Days { get { return base.Keys; } }
 
 		public List<T> this[int index] { get { return this.GetItems(index); } }
 
 		public void Add(DateTime dt, T obj){
 			var startOfDay = DateTimeUtil.GetStartOfDay(dt);
 			if (!this.ContainsKey(startOfDay))
-				this.Add(startOfDay, new List<T>());
+				base.Add(startOfDay, new List<T>());
 
-			this[startOfDay].Add(obj);
+			base[startOfDay].Add(obj);
 		}
 
 		public List<T> GetItems(int index) {
 			var count = 0;
 			List<T> items = null;
-			foreach (var day in this.Keys) {
+			foreach (var day in base.Keys) {
 				if (count <= index) {
-					items = this[day];
+					items = base[day];
 					++count;
 				}
 				else

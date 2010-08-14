@@ -14,9 +14,7 @@ namespace CommonLib.Mvvm
 	[Serializable] //TEMPORARY!!! Only used to save GroupViewModel, should really be saving Group model.
     public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
-        protected ViewModelBase()
-        {
-        }
+        protected ViewModelBase(){}
 
         /// <summary>
         /// Returns the user-friendly name of this object.

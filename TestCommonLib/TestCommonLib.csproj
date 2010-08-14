@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Collections\DayCollectionTest.cs" />
     <Compile Include="Extensions\ObjectExTest.cs" />
+    <Compile Include="Mvvm\Progress\ProgressViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
