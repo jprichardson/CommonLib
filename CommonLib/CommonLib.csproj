@@ -33,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
@@ -49,10 +50,13 @@
     <Compile Include="Date\DayRange.cs" />
     <Compile Include="Extensions\ObjectEx.cs" />
     <Compile Include="Extensions\RandomEx.cs" />
+    <Compile Include="Extensions\StringEx.cs" />
     <Compile Include="Mvvm\Progress\ProgressViewModel.cs" />
     <Compile Include="Mvvm\ModelBase.cs" />
     <Compile Include="Mvvm\Progress\ProgressTaskViewModel.cs" />
     <Compile Include="Mvvm\Progress\ProgressWorkerViewModel.cs" />
+    <Compile Include="Mvvm\SupervisorViewModel.cs" />
+    <Compile Include="Mvvm\WorkspaceViewModel.cs" />
     <Compile Include="Numerical\Data.cs" />
     <Compile Include="Numerical\Matrix.cs" />
     <Compile Include="Numerical\PointD.cs" />

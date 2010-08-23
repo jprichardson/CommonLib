@@ -58,7 +58,7 @@ namespace CommonLib.Mvvm.Progress
 				try {
 					this.scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 				}
-				catch (Exception ex) {
+				catch  {
 					this.scheduler = TaskScheduler.Default;
 				}
 			}

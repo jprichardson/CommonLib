@@ -11,7 +11,6 @@ namespace CommonLib.Mvvm
     /// </summary>
 	/// 
 
-	[Serializable] //TEMPORARY!!! Only used to save GroupViewModel, should really be saving Group model.
     public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
         protected ViewModelBase(){}
@@ -36,6 +35,8 @@ namespace CommonLib.Mvvm
 		public Action<string, string> PromptDialog { get; set; }
 
 		public Func<string, string, bool> ConfirmDialog { get; set; }
+
+		public Func<string, string, string> InputDialog { get; set; }
 		
 
         #region Debugging Aides
