@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CommonLib.Collections
 {
-	public class SortedListDictionary<TKey, TValue> : SortedDictionary<TKey, List<TValue>>
+	public class SortedDictionaryList<TKey, TValue> : SortedDictionary<TKey, List<TValue>>
 	{
 		public void Add(TKey key, TValue value) {
 			if (!base.ContainsKey(key))

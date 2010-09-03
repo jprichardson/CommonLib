@@ -45,7 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\DayCollection.cs" />
-    <Compile Include="Collections\SortedListDictionary.cs" />
+    <Compile Include="Collections\DictionaryList.cs" />
+    <Compile Include="Collections\SortedDictionaryList.cs" />
     <Compile Include="Extensions\DateEx.cs" />
     <Compile Include="Date\DayRange.cs" />
     <Compile Include="Extensions\ObjectEx.cs" />

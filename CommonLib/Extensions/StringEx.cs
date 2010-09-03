@@ -22,6 +22,19 @@ namespace CommonLib.Extensions
 				return self.Substring(0, self.Length - 1);
 		}
 
+		public static int CountLines(this string self) {
+			int pos = 0;
+			int count = 1;
+			do {
+				pos = self.IndexOf(Environment.NewLine, pos);
+				if (pos >= 0)
+					++count;
+				++pos;
+			} while (pos > 0);
+
+			return count;
+		}
+
 		public static string FirstLine(this string self) {
 			int pos = self.IndexOf(Environment.NewLine);
 			if (pos == -1)

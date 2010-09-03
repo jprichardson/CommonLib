@@ -62,12 +62,15 @@ namespace CommonLib.Mvvm
 /**********************************************************
  * PUBLIC METHODS
  **********************************************************/
-
-		public void RunProgressTask(string taskText, bool reportsProgress, Action<ProgressViewModel> task) {
-			this.RunProgressTask(taskText, reportsProgress, task, null);
+		public bool IsTaskRunningWithText(string taskText) {
+			return (this.ProgressViewModels.Where(pvm => pvm.ProgressText == taskText).Count() > 0);
 		}
 
-		public void RunProgressTask(string taskText, bool reportsProgress, Action<ProgressViewModel> task, Action taskComplete) {
+		public void RunTask(string taskText, bool reportsProgress, Action<ProgressViewModel> task) {
+			this.RunTask(taskText, reportsProgress, task, null);
+		}
+
+		public void RunTask(string taskText, bool reportsProgress, Action<ProgressViewModel> task, Action taskComplete) {
 			ProgressViewModel pvm = new ProgressWorkerViewModel(taskText);
 			pvm.ReportsProgress = reportsProgress;
 
@@ -83,7 +86,7 @@ namespace CommonLib.Mvvm
 			pvm.ExecuteCommand.Execute(null);
 		}
 
-		public void RunTaskWhenAllProgressFinished(Action task) {
+		public void RunTaskWhenAllFinished(Action task) {
 			if (this.ProgressViewModels.Count > 0)
 				_finishedTaskQueue.Enqueue(task);
 			else
