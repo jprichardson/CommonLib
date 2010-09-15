@@ -5,6 +5,7 @@ using System.Text;
 
 namespace CommonLib.Mvvm
 {
+	[Serializable]
 	public abstract class ModelBase
 	{
 	}
