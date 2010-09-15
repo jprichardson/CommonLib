@@ -5,12 +5,7 @@ using System.Threading;
 
 namespace TestCommonLib
 {
-    
-    
-    /// <summary>
-    ///This is a test class for ProgressViewModelTest and is intended
-    ///to contain all ProgressViewModelTest Unit Tests
-    ///</summary>
+
 	[TestClass()]
 	public class ProgressViewModelTest
 	{
@@ -18,10 +13,6 @@ namespace TestCommonLib
 
 		private TestContext testContextInstance;
 
-		/// <summary>
-		///Gets or sets the test context which provides
-		///information about and functionality for the current test run.
-		///</summary>
 		public TestContext TestContext {
 			get {
 				return testContextInstance;

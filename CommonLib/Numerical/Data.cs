@@ -54,6 +54,14 @@ namespace CommonLib.Numerical
 			return Math.Abs(top / bot);
 		}
 
+		public static double PercentError(double experimental, double theoretical) {
+			return (experimental - theoretical) / theoretical;
+		}
+
+		public static double PercentErrorAbs(double experimental, double theoretical) {
+			return Math.Abs(PercentError(experimental, theoretical));
+		}
+
 		/*public static double[] LeastSquaresLine(double[] Y, double[] x) {
 
 		}*/
