@@ -54,11 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\DayCollectionTest.cs" />
+    <Compile Include="Extensions\DateExTest.cs" />
     <Compile Include="Numerical\DataTest.cs" />
     <Compile Include="Extensions\ObjectExTest.cs" />
     <Compile Include="Mvvm\Progress\ProgressViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringExTest.cs" />
+    <Compile Include="Extensions\StringExTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj">
