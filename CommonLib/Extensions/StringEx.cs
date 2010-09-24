@@ -48,7 +48,7 @@ namespace CommonLib.Extensions
 		}
 
 		public static char LastCharAt(this string self, int pos) {
-			return self[self.Length - pos];
+			return self[self.Length + pos];
 		}
 
 		public static string MakeProper(this string s) {
