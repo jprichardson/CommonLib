@@ -62,6 +62,18 @@ namespace CommonLib.Numerical
 			return Math.Abs(PercentError(experimental, theoretical));
 		}
 
+		public static double StandardDeviation(double[] X) {
+			var mean = X.Average();
+
+			var sum = 0.0;
+			foreach (var x in X)
+				sum += Math.Pow(x - mean, 2);
+
+			var var = sum / (X.Length - 1);
+
+			return Math.Sqrt(var);
+		}
+
 		/*public static double[] LeastSquaresLine(double[] Y, double[] x) {
 
 		}*/
