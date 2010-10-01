@@ -12,11 +12,17 @@ namespace CommonLib.Extensions
 		}
 
 		public static DateTime TrimMilliseconds(this DateTime self) {
-			return self.AddMilliseconds(-self.Millisecond);
+			if (self.Millisecond != 0)
+				return self.AddMilliseconds(-self.Millisecond);
+			else
+				return self;
 		}
 
 		public static DateTime TrimSecondsAndMilliseconds(this DateTime self) {
-			return self.TrimMilliseconds().AddSeconds(-self.Second);
+			if (self.Millisecond != 0 && self.Second != 0)
+				return self.TrimMilliseconds().AddSeconds(-self.Second);
+			else
+				return self;
 		}
 	}
 }

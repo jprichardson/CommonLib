@@ -47,8 +47,12 @@
     <Compile Include="Collections\DayCollection.cs" />
     <Compile Include="Collections\DictionaryList.cs" />
     <Compile Include="Collections\SortedDictionaryList.cs" />
+    <Compile Include="Data\Csv\Csv.cs" />
+    <Compile Include="Data\Csv\CsvToXml.cs" />
+    <Compile Include="Data\Xml\DynamicXElement.cs" />
     <Compile Include="Extensions\DateEx.cs" />
     <Compile Include="Date\DayRange.cs" />
+    <Compile Include="Extensions\IEnumerableEx.cs" />
     <Compile Include="Extensions\ObjectEx.cs" />
     <Compile Include="Extensions\RandomEx.cs" />
     <Compile Include="Extensions\StringEx.cs" />
@@ -67,6 +71,7 @@
     <Compile Include="Utility\BenchmarkTimer.cs" />
     <Compile Include="Utility\DateTimeUtil.cs" />
     <Compile Include="Utility\FileUtil.cs" />
+    <Compile Include="Utility\NumberUtil.cs" />
     <Compile Include="Utility\ProcessUtil.cs" />
     <Compile Include="Utility\StringUtil.cs" />
   </ItemGroup>

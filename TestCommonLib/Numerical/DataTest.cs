@@ -95,6 +95,9 @@ namespace TestCommonLib
 		public void StandardDeviationTest() {
 			double[] X = {4,9,11,12,17,5,8,12,14};
 			Assert.AreEqual(4.18, Math.Round(Data.StandardDeviation(X), 2));
+
+			double[] M = {5};
+			Assert.AreEqual(0, Math.Round(Data.StandardDeviation(M), 2));
 		}
 	}
 }

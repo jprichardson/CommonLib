@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -54,13 +55,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collections\DayCollectionTest.cs" />
+    <Compile Include="Data\Csv\CsvTest.cs" />
+    <Compile Include="Data\Csv\CsvToXmlTest.cs" />
     <Compile Include="Extensions\DateExTest.cs" />
+    <Compile Include="Extensions\IEnumerableExTest.cs" />
+    <Compile Include="TestEnvironment.cs" />
+    <Compile Include="Utility\NumberUtilTest.cs" />
     <Compile Include="Numerical\DataTest.cs" />
     <Compile Include="Extensions\ObjectExTest.cs" />
     <Compile Include="Mvvm\Progress\ProgressViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\StringExTest.cs" />
-    <Compile Include="StringUtilTest.cs" />
+    <Compile Include="Utility\StringUtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj">
@@ -69,8 +75,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Utility\" />
+    <Shadow Include="Test References\CommonLib.accessor" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

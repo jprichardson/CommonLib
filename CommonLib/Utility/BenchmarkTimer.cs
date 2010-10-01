@@ -26,7 +26,7 @@ namespace CommonLib.Utility
 			return stop - startBD.DateTime;
 		}
 
-		public static void StopAndOutput() {
+		public static TimeSpan StopAndOutput() {
 			var stop = DateTime.Now;
 			var startBD = _startStack.Pop();
 
@@ -34,6 +34,7 @@ namespace CommonLib.Utility
 
 			var lbl = "{0}: {1} ms";
 			Console.WriteLine(String.Format(lbl, startBD.Label, delta.TotalMilliseconds));
+			return delta;
 		}
 
 		private class BenchmarkData

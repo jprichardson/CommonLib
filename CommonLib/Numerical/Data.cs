@@ -63,15 +63,15 @@ namespace CommonLib.Numerical
 		}
 
 		public static double StandardDeviation(double[] X) {
-			var mean = X.Average();
+			if (X.Length > 1) {
+				var mean = X.Average();
+				var sum = X.Sum(x => Math.Pow(x - mean, 2));
+				var var = sum / (X.Length - 1);
 
-			var sum = 0.0;
-			foreach (var x in X)
-				sum += Math.Pow(x - mean, 2);
-
-			var var = sum / (X.Length - 1);
-
-			return Math.Sqrt(var);
+				return Math.Sqrt(var);
+			}
+			else
+				return 0.0;
 		}
 
 		/*public static double[] LeastSquaresLine(double[] Y, double[] x) {

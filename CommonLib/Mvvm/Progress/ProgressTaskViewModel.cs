@@ -28,13 +28,12 @@ namespace CommonLib.Mvvm.Progress
 		}
 
 		protected override void Run() {
-			var task = Task.Factory.StartNew(() =>
+			this.ThreadWorker = Task.Factory.StartNew(() =>
 			{
 				this.ActionWork.Invoke(this);
 			});
-			this.ThreadWorker = task;
 
-			_pr.RegisterContinuation(task, () =>
+			var completedTask = _pr.RegisterContinuation((Task)this.ThreadWorker, () =>
 			{
 				if (this.ActionComplete != null)
 					this.ActionComplete.Invoke();
