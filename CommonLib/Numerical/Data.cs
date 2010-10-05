@@ -62,6 +62,7 @@ namespace CommonLib.Numerical
 			return Math.Abs(PercentError(experimental, theoretical));
 		}
 
+		//http://en.wikipedia.org/wiki/Bessel's_correction
 		public static double StandardDeviation(double[] X) {
 			if (X.Length > 1) {
 				var mean = X.Average();

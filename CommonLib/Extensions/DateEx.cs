@@ -19,7 +19,7 @@ namespace CommonLib.Extensions
 		}
 
 		public static DateTime TrimSecondsAndMilliseconds(this DateTime self) {
-			if (self.Millisecond != 0 && self.Second != 0)
+			if (self.Millisecond != 0 || self.Second != 0)
 				return self.TrimMilliseconds().AddSeconds(-self.Second);
 			else
 				return self;

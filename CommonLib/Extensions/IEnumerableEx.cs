@@ -21,6 +21,7 @@ namespace CommonLib.Extensions
 			return values.StandardDeviation(x => x);
 		}
 
+		//http://en.wikipedia.org/wiki/Bessel's_correction
 		public static double StandardDeviation<T>(this IEnumerable<T> values, Func<T,double> func) {
 			int count = values.Count();
 			if(count > 1){

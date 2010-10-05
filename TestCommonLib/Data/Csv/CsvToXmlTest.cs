@@ -44,7 +44,7 @@ namespace TestCommonLib
 			var csv = new CsvToXml(file);
 			Assert.AreEqual(file, csv.CsvFile);
 			Assert.AreEqual(',', csv.RecordDelimiter);
-			Assert.AreEqual("\"", csv.TextQualifier);
+			Assert.AreEqual('"', csv.TextQualifier);
 			Assert.AreEqual(false, csv.HasColumnNames);
 		}
 

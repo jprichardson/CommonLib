@@ -66,6 +66,9 @@ namespace TestCommonLib
 		public void TrimSecondsAndMillisecondsTest() {
 			var dt = new DateTime(2010, 4, 5, 4, 32, 2, 134);
 			Assert.AreEqual(new DateTime(2010, 4, 5, 4, 32, 0), dt.TrimSecondsAndMilliseconds());
+
+			dt = new DateTime(2010, 4, 5, 4, 32, 2, 0);
+			Assert.AreEqual(new DateTime(2010, 4, 5, 4, 32, 0), dt.TrimSecondsAndMilliseconds());
 		}
 	}
 }
