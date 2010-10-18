@@ -8,6 +8,7 @@ namespace CommonLib.Extensions
 {
 	public static class RandomEx
 	{
+		//may not have even distribution, must test
 		public static long NextLong(this Random rnd, long min, long max) {
 			if (max <= min)
 				throw new Exception("Max must be less than min.");
@@ -25,12 +26,21 @@ namespace CommonLib.Extensions
 			return min + posNum;
 		}
 
-		public static DateTime NextDateTime(this Random rnd, DateTime min, DateTime max) {
+		//didn't have even distribution, remove
+		/*public static DateTime NextDateTime(this Random rnd, DateTime min, DateTime max) {
 			if (max.Ticks <= min.Ticks)
 				throw new Exception("Max must be less than min.");
 
 			var ticks = rnd.NextLong(min.Ticks, max.Ticks);
 			return new DateTime(ticks);
+		}*/
+
+		public static DateTime NextDateTime(this Random rnd, DateTime min, DateTime max) {
+			var milliRange = (max - min).TotalMilliseconds;
+
+			var millis = (long)milliRange;
+			var num = (long)(rnd.NextDouble() * millis);
+			return min.AddMilliseconds(num);
 		}
 
 		

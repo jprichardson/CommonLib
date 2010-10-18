@@ -59,6 +59,7 @@
     <Compile Include="Data\Csv\CsvToXmlTest.cs" />
     <Compile Include="Extensions\DateExTest.cs" />
     <Compile Include="Extensions\IEnumerableExTest.cs" />
+    <Compile Include="Extensions\RandomExTest.cs" />
     <Compile Include="TestEnvironment.cs" />
     <Compile Include="Utility\NumberUtilTest.cs" />
     <Compile Include="Numerical\DataTest.cs" />
