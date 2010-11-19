@@ -17,6 +17,12 @@ namespace CommonLib.Extensions
 				return 0;
 		}*/
 
+		public static IEnumerable<T> Difference<T>(this IEnumerable<T> self, IEnumerable<T> other) {
+			var a = self.Except<T>(other);
+			var b = other.Except<T>(self);
+			return a.Union<T>(b);
+		}
+
 		public static double StandardDeviation(this IEnumerable<double> values) {
 			return values.StandardDeviation(x => x);
 		}

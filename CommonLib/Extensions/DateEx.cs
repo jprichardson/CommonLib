@@ -7,6 +7,12 @@ namespace CommonLib.Extensions
 {
 	public static class DateEx
 	{
+		public static DateTime RemoveDaylightSavingsTime(this DateTime dt) {
+			if (dt.IsDaylightSavingTime())
+				dt = dt.AddHours(-1);
+			return dt;
+		}
+
 		public static string ToShortDateTimeString(this DateTime dt){
 			return dt.ToShortDateString() + " " + dt.ToShortTimeString();
 		}
