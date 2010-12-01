@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using CommonLib.Extensions;
+using System.Xml;
+using System.Xml.Linq;
+using CommonLib.IO;
+using System.Globalization;
 
 namespace CommonLib.Utility
 {
@@ -31,6 +35,15 @@ namespace CommonLib.Utility
 			}
 
 			return sb.ToString().Chop();
+		}
+
+		public static string XElementToString(XElement xml){
+			var sw = new StringWriterUTF8(CultureInfo.CurrentCulture);
+			var writer = XmlWriter.Create(sw, new XmlWriterSettings() { Indent = true, IndentChars = "\t", Encoding = Encoding.UTF8 });
+			xml.WriteTo(writer);
+			writer.Flush();
+			writer.Close();
+			return sw.ToString();
 		}
 	}
 }

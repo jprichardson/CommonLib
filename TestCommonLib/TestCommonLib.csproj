@@ -66,6 +66,7 @@
     <Compile Include="Data\Csv\CsvTest.cs" />
     <Compile Include="Data\Csv\CsvToXmlTest.cs" />
     <Compile Include="Data\Sql\SQLiteBulkInsertTest.cs" />
+    <Compile Include="Extensions\DictionaryExTest.cs" />
     <Compile Include="Extensions\ListExTest.cs" />
     <Compile Include="Extensions\DateExTest.cs" />
     <Compile Include="Extensions\IEnumerableExTest.cs" />

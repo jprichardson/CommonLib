@@ -6,8 +6,9 @@ using System.Xml.Linq;
 using System.Xml;
 using System.IO;
 using CommonLib.Data.Xml;
-
+using CommonLib.IO;
 using System.Globalization;
+using CommonLib.Utility;
 using CommonLib.Collections;
 
 namespace CommonLib.Data.Csv
@@ -67,15 +68,8 @@ namespace CommonLib.Data.Csv
 			get {
 				if (this.XmlData == null)
 					return "";
-				else {
-					var sw = new UTF8StringWriter(CultureInfo.CurrentCulture);
-					Console.WriteLine(sw.Encoding);
-					var writer = XmlWriter.Create(sw, new XmlWriterSettings() { Indent = true, IndentChars = "\t", Encoding = Encoding.UTF8 });
-					this.XmlData.WriteTo(writer);
-					writer.Flush();
-					writer.Close();
-					return sw.ToString();
-				}
+				else
+					return StringUtil.XElementToString(this.XmlData);
 			}
 		}
 
@@ -107,20 +101,6 @@ namespace CommonLib.Data.Csv
 					select new XElement(_columnNames[i], fieldData)
 				)
 			);
-		}
-
-		//we need to do this, or else our CsvToXml.XmlString is utf-16
-		//see: http://devproj20.blogspot.com/2008/02/writing-xml-with-utf-8-encoding-using.html
-		private class UTF8StringWriter : StringWriter 
-		{
-			public UTF8StringWriter() : base() {	}
-			public UTF8StringWriter(IFormatProvider formatProvider) : base(formatProvider) { } 
-
-			public override Encoding Encoding {
-				get {
-					return Encoding.UTF8;
-				}
-			}
 		}
 	}
 }

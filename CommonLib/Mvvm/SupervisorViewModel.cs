@@ -120,6 +120,40 @@ namespace CommonLib.Mvvm
 		}
 
 /**********************************************************
+ *  PROTECTED METHODS
+ *********************************************************/
+
+		protected T FindFirst<T>() where T : WorkspaceViewModel {
+			T workspace = this.Workspaces.FirstOrDefault(vm => vm is T) as T;
+			return workspace;
+		}
+
+		protected T FindFirstOrCreate<T>() where T : WorkspaceViewModel, new() {
+			return this.FindFirstOrCreate(() => new T());
+		}
+
+		protected T FindFirstOrCreate<T>(Func<T> createFunc) where T : WorkspaceViewModel {
+			T workspace = this.FindFirst<T>();
+			if (workspace == null) {
+				workspace = createFunc();
+				this.Workspaces.Add(workspace);
+			}
+			return workspace;
+		}
+
+		protected T FindFirstOrCreateAndSetActive<T>() where T : WorkspaceViewModel, new() {
+			T workspace = this.FindFirstOrCreate<T>();
+			this.SetActiveWorkspace(workspace);
+			return workspace;
+		}
+
+		protected T FindFirstOrCreateAndSetActive<T>(Func<T> createFunc) where T : WorkspaceViewModel {
+			T workspace = this.FindFirstOrCreate<T>(createFunc);
+			this.SetActiveWorkspace(workspace);
+			return workspace;
+		}
+
+/**********************************************************
  * PRIVATE METHODS
  **********************************************************/
 
