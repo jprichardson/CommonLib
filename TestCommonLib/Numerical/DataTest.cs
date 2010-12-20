@@ -20,36 +20,6 @@ namespace TestCommonLib
 			}
 		}
 
-		#region Additional test attributes
-		// 
-		//You can use the following additional attributes as you write your tests:
-		//
-		//Use ClassInitialize to run code before running the first test in the class
-		//[ClassInitialize()]
-		//public static void MyClassInitialize(TestContext testContext)
-		//{
-		//}
-		//
-		//Use ClassCleanup to run code after all tests in a class have run
-		//[ClassCleanup()]
-		//public static void MyClassCleanup()
-		//{
-		//}
-		//
-		//Use TestInitialize to run code before running each test
-		//[TestInitialize()]
-		//public void MyTestInitialize()
-		//{
-		//}
-		//
-		//Use TestCleanup to run code after each test has run
-		//[TestCleanup()]
-		//public void MyTestCleanup()
-		//{
-		//}
-		//
-		#endregion
-
 		[TestMethod()]
 		public void PercentDifferenceTest() {
 			var x1 = 20.0;
@@ -98,6 +68,21 @@ namespace TestCommonLib
 
 			double[] M = {5};
 			Assert.AreEqual(0, Math.Round(Data.StandardDeviation(M), 2));
+		}
+
+		[TestMethod()]
+		public void LeastSquaresCoefTest() {
+			double[] X = {1.0, 2.3, 3.1, 4.8, 5.6, 6.3};
+			double[] Y = {2.6, 2.8, 3.1, 4.7, 5.1, 5.3};
+
+			double m;
+			double b;
+			double merr;
+			double berr;
+			Data.LeastSquaresCoef(Y, X, out m, out b, out merr, out berr);
+
+			Assert.AreEqual(0.5842, Math.Round(m, 4));
+			Assert.AreEqual(1.6842, Math.Round(b, 4));
 		}
 	}
 }

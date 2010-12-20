@@ -73,8 +73,9 @@ namespace CommonLib.Mvvm
 		public event EventHandler RequestClose;
 		public event EventHandler RequestDetach;
 
-		protected virtual void OnAttached(object vm) { //when added to supervisor
-			this.Supervisor = (SupervisorViewModel)vm;
+		protected virtual void OnAttached(object svm) {
+			this.Supervisor = (SupervisorViewModel)svm;
+			
 		}
 
 		private void OnRequestClose() {

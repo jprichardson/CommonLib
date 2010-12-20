@@ -73,5 +73,51 @@ namespace TestCommonLib
 			ba = NumberUtil.ConvertNibbleToBitarray(16); //0001 0000 every input is ANDed with 0xF
 			Assert.IsFalse(ba[0]); Assert.IsFalse(ba[1]); Assert.IsFalse(ba[2]); Assert.IsFalse(ba[3]);
 		}
+
+		[TestMethod()]
+		public void TrimZerosTest(){
+			var num = "0.000153989000";
+			Assert.AreEqual("0.000153989", NumberUtil.TrimZeros(num));
+
+			num = "-0.000153989000";
+			Assert.AreEqual("-0.000153989", NumberUtil.TrimZeros(num));
+
+			num = "1.000153989000";
+			Assert.AreEqual("1.000153989", NumberUtil.TrimZeros(num));
+
+			num = "-1.000153989000";
+			Assert.AreEqual("-1.000153989", NumberUtil.TrimZeros(num));
+
+			num = "100.000153989000";
+			Assert.AreEqual("100.000153989", NumberUtil.TrimZeros(num));
+
+			num = "-100.000153989000";
+			Assert.AreEqual("-100.000153989", NumberUtil.TrimZeros(num));
+
+			num = "1.0";
+			Assert.AreEqual("1.0", NumberUtil.TrimZeros(num));
+
+			num = "-1.0";
+			Assert.AreEqual("-1.0", NumberUtil.TrimZeros(num));
+
+			num = "1.000";
+			Assert.AreEqual("1.0", NumberUtil.TrimZeros(num));
+
+			num = "-1.000";
+			Assert.AreEqual("-1.0", NumberUtil.TrimZeros(num));
+
+			num = "100.0";
+			Assert.AreEqual("100.0", NumberUtil.TrimZeros(num));
+
+			num = "-100.0";
+			Assert.AreEqual("-100.0", NumberUtil.TrimZeros(num));
+
+			num = "1";
+			Assert.AreEqual("1", NumberUtil.TrimZeros(num));
+
+			num = "100";
+			Assert.AreEqual("100", NumberUtil.TrimZeros(num));
+
+		}
 	}
 }

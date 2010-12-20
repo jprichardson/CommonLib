@@ -52,7 +52,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Collections\BoolDictionary.cs" />
     <Compile Include="Collections\DayCollection.cs" />
     <Compile Include="Collections\DictionaryList.cs" />
     <Compile Include="Collections\FlexDictionary.cs" />

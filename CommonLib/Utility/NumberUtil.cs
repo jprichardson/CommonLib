@@ -20,5 +20,28 @@ namespace CommonLib.Utility
 			}
 			return ba;
 		}
+
+		public static string TrimZeros(string num) {
+			var d = Convert.ToDecimal(num);
+			string ret = null;
+
+			int pos = num.IndexOf('.');
+			if (pos > 0) {
+				var data = num.Split('.');
+				data[1] = data[1].TrimEnd('0');
+				if (data[1].Length == 0) //they were all zeros
+					data[1] = "0";
+				ret = data[0] + '.' + data[1];
+			}
+			else
+				ret = num;
+
+			var dret = Convert.ToDecimal(ret);
+
+			if (d != dret)
+				throw new Exception(string.Format("Bug in TrimZeros. {0} != {1}", d, dret));
+
+			return ret;
+		}
 	}
 }

@@ -99,8 +99,8 @@ namespace CommonLib.Mvvm
 		}
 
 		public void AddWorkspace(WorkspaceViewModel workspace) {
-			workspace.AttachCommand.Execute(this);
 			this.Workspaces.Add(workspace);
+			workspace.AttachCommand.Execute(this);
 		}
 
 		public void AddWorkspaceAndSetActive(WorkspaceViewModel workspace) {
