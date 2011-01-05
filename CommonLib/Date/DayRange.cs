@@ -19,8 +19,6 @@ namespace CommonLib.Date
 
 		public double TotalMinutes { get { return (this.End - this.Start).TotalMinutes; } }
 
-		
-
 		public static DayRange[] DaysToDayRanges(DateTime[] days) {
 			DayRange[] ranges = new DayRange[days.Length];
 			for (int x = 0; x < days.Length; x++) {

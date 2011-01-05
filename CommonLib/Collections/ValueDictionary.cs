@@ -19,11 +19,18 @@ namespace CommonLib.Collections
 				throw new Exception("Can't use ValueDictionary with " + _type);
 		}
 
+		public ValueDictionary(IDictionary<int, V> vdict, V defaultReturn) : base(vdict) {
+			this.DefaultReturn = defaultReturn;
+
+			if (_converter == null)
+				throw new Exception("Can't use ValueDictionary with " + _type);
+		}
+
 		public V DefaultReturn { get; set; }
 
-		public int ActualCount { get { return base.Count; } }
+		//public int ActualCount { get { return base.Count; } }
 
-		private int _desiredCount = -1;
+		/*private int _desiredCount = -1;
 		public int DesiredCount { //used to iterate over large set and get default values for those not present in the dictionary
 			get {
 				if (_desiredCount < 0)
@@ -34,7 +41,7 @@ namespace CommonLib.Collections
 			set {
 				_desiredCount = value;
 			}
-		}
+		}*/
 
 		public new V this[int index] {
 			set {
@@ -42,12 +49,27 @@ namespace CommonLib.Collections
 					this.Add(index, value);
 				else
 					base[index] = value;
+
+				//address negative case
+				if (index < 0) {
+					if (!_negativeIndices.ContainsKey(index))
+						_negativeIndices.Add(index, value);
+					else
+						_negativeIndices[index] = value;
+				}
 			}
 			get {
 				if (!this.ContainsKey(index))
 					return this.DefaultReturn;
 				else
 					return base[index];
+			}
+		}
+
+		private Dictionary<int, V> _negativeIndices = new Dictionary<int, V>();
+		public Dictionary<int, V> NegativeIndices {
+			get {
+				return new Dictionary<int, V>(_negativeIndices);
 			}
 		}
 
@@ -65,6 +87,14 @@ namespace CommonLib.Collections
 			sr.Close();
 
 			return bd;
+		}
+
+		public new void Remove(int index){
+			base.Remove(index);
+
+			if (index < 0)
+				if (_negativeIndices.ContainsKey(index))
+					_negativeIndices.Remove(index);
 		}
 
 		public void Save(string file) {
