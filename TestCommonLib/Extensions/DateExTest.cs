@@ -26,11 +26,11 @@ namespace TestCommonLib
 			Assert.AreNotEqual(dt.ToString(), dt.ToShortDateTimeString());
 		}
 
-		[TestMethod()]
+		/*[TestMethod()]
 		public void TrimMillisecondsTest() {
 			var dt = new DateTime(2010, 4, 5, 4, 32, 2, 134);
 			Assert.AreEqual(new DateTime(2010, 4, 5, 4, 32, 2), dt.TrimMilliseconds());
-		}
+		}*/
 
 		[TestMethod()]
 		public void TrimSecondsAndMillisecondsTest() {
@@ -39,22 +39,19 @@ namespace TestCommonLib
 
 			dt = new DateTime(2010, 4, 5, 4, 32, 2, 0);
 			Assert.AreEqual(new DateTime(2010, 4, 5, 4, 32, 0), dt.TrimSecondsAndMilliseconds());
+
+			var dt3 = new DateTime(634299220800007877); //the 7877 ticks screws it up!
+			var dt4 = new DateTime(634299220800000000);
+			var dt5 = DateTime.Parse("2011-01-06 2:48 PM");
+
+			Assert.IsTrue(dt3 != dt4);
+			Assert.IsTrue(dt3 != dt5);
+			Assert.IsTrue(dt5 == dt4);
+			Assert.IsTrue(dt3.ToShortDateTimeString() == dt4.ToShortDateTimeString()); 
+			Assert.IsTrue(dt5.ToShortDateTimeString() == dt3.ToShortDateTimeString()); //year, day, month, hour, min are the same
+
+			var dt6 = dt3.TrimSecondsAndMilliseconds();
+			Assert.IsTrue(dt5 == dt6);
 		}
-
-		/*[TestMethod()]
-		public void RemoveDaylightSavingsTimeTest() {
-			var s = "2010-06-12 1:06:00 PM";
-			var dt = Convert.ToDateTime(s);
-			var dt2 = dt.RemoveDaylightSavingsTime();
-			Assert.AreEqual(dt.AddHours(-1), dt2);
-
-			var dt3 = dt2.RemoveDaylightSavingsTime();
-			Assert.AreEqual(dt2, dt3);
-
-			s = "2010-11-12 1:06:00 PM";
-			dt = Convert.ToDateTime(s);
-			dt2 = dt.RemoveDaylightSavingsTime();
-			Assert.AreEqual(dt, dt2);
-		}*/
 	}
 }
