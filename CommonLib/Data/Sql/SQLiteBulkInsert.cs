@@ -121,7 +121,7 @@ namespace CommonLib.Data.Sql
 					if (_trans != null)
 						_trans.Commit();
 				}
-				catch (Exception ex) { }
+				catch  { }
 				finally {
 					if (_trans != null) {
 						_trans.Dispose();

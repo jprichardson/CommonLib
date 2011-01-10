@@ -4,22 +4,33 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace CommonLib.Collections
 {
-	public class ValueDictionary<V> : Dictionary<int, V>
+	[XmlRoot("ValueDictionary")]
+	public class ValueDictionary<V> : Dictionary<int, V>, IXmlSerializable
 	{
 		private static Type _type = typeof(V);
 		private static TypeConverter _converter = TypeDescriptor.GetConverter(_type);
+
+		public ValueDictionary() : base() {
+			if (_converter == null)
+				throw new Exception("Can't use ValueDictionary with " + _type);
+		}
 		
-		public ValueDictionary(V defaultReturn) : base() {
+		public ValueDictionary(V defaultReturn)
+			: base() {
 			this.DefaultReturn = defaultReturn;
 
 			if (_converter == null)
 				throw new Exception("Can't use ValueDictionary with " + _type);
 		}
 
-		public ValueDictionary(IDictionary<int, V> vdict, V defaultReturn) : base(vdict) {
+		public ValueDictionary(IDictionary<int, V> vdict, V defaultReturn)
+			: base(vdict) {
 			this.DefaultReturn = defaultReturn;
 
 			if (_converter == null)
@@ -66,6 +77,10 @@ namespace CommonLib.Collections
 			}
 		}
 
+		public XmlSchema GetSchema() {
+			return null;
+		}
+
 		private Dictionary<int, V> _negativeIndices = new Dictionary<int, V>();
 		public Dictionary<int, V> NegativeIndices {
 			get {
@@ -75,7 +90,7 @@ namespace CommonLib.Collections
 
 		public static ValueDictionary<V> Load(string file) {
 			var sr = new StreamReader(file);
-			
+
 			V defaultReturn = (V)_converter.ConvertFromString(sr.ReadLine());
 			var bd = new ValueDictionary<V>(defaultReturn);
 
@@ -89,7 +104,41 @@ namespace CommonLib.Collections
 			return bd;
 		}
 
-		public new void Remove(int index){
+		public void ReadXml(XmlReader reader) {
+			XmlSerializer keySerializer = new XmlSerializer(typeof(int));
+			XmlSerializer valueSerializer = new XmlSerializer(typeof(V));
+
+			bool wasEmpty = reader.IsEmptyElement;
+			reader.Read();
+
+			if (wasEmpty)
+				return;
+
+			reader.ReadStartElement("DefaultReturn");
+			this.DefaultReturn = (V)valueSerializer.Deserialize(reader);
+			reader.ReadEndElement();
+
+			while (reader.NodeType != System.Xml.XmlNodeType.EndElement) {
+				reader.ReadStartElement("Item");
+
+				reader.ReadStartElement("Key");
+				int key = (int)keySerializer.Deserialize(reader);
+				reader.ReadEndElement();
+
+				reader.ReadStartElement("Value");
+				V value = (V)valueSerializer.Deserialize(reader);
+				reader.ReadEndElement();
+
+				this.Add(key, value);
+
+				reader.ReadEndElement();
+				reader.MoveToContent();
+			}
+			
+			reader.ReadEndElement();
+		}
+
+		public new void Remove(int index) {
 			base.Remove(index);
 
 			if (index < 0)
@@ -106,6 +155,30 @@ namespace CommonLib.Collections
 				sw.WriteLine("{0},{1}", k, base[k].ToString());
 
 			sw.Close();
+		}
+
+		public void WriteXml(XmlWriter writer) {
+			XmlSerializer keySerializer = new XmlSerializer(typeof(int));
+			XmlSerializer valueSerializer = new XmlSerializer(typeof(V));
+
+			writer.WriteStartElement("DefaultReturn");
+			valueSerializer.Serialize(writer, this.DefaultReturn);
+			writer.WriteEndElement();
+
+			foreach (int key in this.Keys) {
+				writer.WriteStartElement("Item");
+
+				writer.WriteStartElement("Key");
+				keySerializer.Serialize(writer, key);
+				writer.WriteEndElement();
+
+				writer.WriteStartElement("Value");
+				V value = this[key];
+				valueSerializer.Serialize(writer, value);
+				writer.WriteEndElement();
+
+				writer.WriteEndElement();
+			}
 		}
 	}
 }

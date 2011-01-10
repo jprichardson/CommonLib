@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
+using CommonLib.Utility;
 
 namespace TestCommonLib
 {
@@ -62,6 +63,29 @@ namespace TestCommonLib
 			vd[10000] = true;
 
 			Assert.AreEqual(4, vd.NegativeIndices.Count);
+		}
+
+		[TestMethod()]
+		public void XmlSerializationTest() {
+			var vd = new ValueDictionary<bool>(true);
+			vd[1] = true;
+			vd[2] = false;
+			vd[-100] = false;
+			Assert.AreEqual(3, vd.Count);
+
+			var dir = Environment.CurrentDirectory + Path.DirectorySeparatorChar;
+			var file = dir + "f.txt";
+
+			FileUtil.WriteToXmlFile(vd, file);
+
+			var txt = File.ReadAllText(file);
+
+			var vd2 = FileUtil.ReadFromXmlFile<ValueDictionary<bool>>(file);
+			Assert.IsTrue(vd2[1]);
+			Assert.IsFalse(vd2[2]);
+			Assert.IsFalse(vd2[-100]);
+			Assert.AreEqual(3, vd2.Count);
+			Assert.IsTrue(vd2.DefaultReturn);
 		}
 	}
 }
