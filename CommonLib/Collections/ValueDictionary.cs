@@ -17,42 +17,34 @@ namespace CommonLib.Collections
 		private static TypeConverter _converter = TypeDescriptor.GetConverter(_type);
 
 		public ValueDictionary() : base() {
+			this.AllowNegativeIndices = true;
 			if (_converter == null)
 				throw new Exception("Can't use ValueDictionary with " + _type);
 		}
 		
-		public ValueDictionary(V defaultReturn)
-			: base() {
+		public ValueDictionary(V defaultReturn) : base() {
+			this.AllowNegativeIndices = true;
 			this.DefaultReturn = defaultReturn;
 
 			if (_converter == null)
 				throw new Exception("Can't use ValueDictionary with " + _type);
 		}
 
-		public ValueDictionary(IDictionary<int, V> vdict, V defaultReturn)
-			: base(vdict) {
+		public ValueDictionary(IDictionary<int, V> vdict, V defaultReturn) : base(vdict) {
 			this.DefaultReturn = defaultReturn;
+			this.AllowNegativeIndices = true;
 
 			if (_converter == null)
 				throw new Exception("Can't use ValueDictionary with " + _type);
 		}
 
+		//public new object Count { get { return null; } }
+
+		
 		public V DefaultReturn { get; set; }
+		public bool AllowNegativeIndices { get; set; }
 
-		//public int ActualCount { get { return base.Count; } }
-
-		/*private int _desiredCount = -1;
-		public int DesiredCount { //used to iterate over large set and get default values for those not present in the dictionary
-			get {
-				if (_desiredCount < 0)
-					return this.ActualCount;
-				else
-					return _desiredCount;
-			}
-			set {
-				_desiredCount = value;
-			}
-		}*/
+		
 
 		public new V this[int index] {
 			set {
@@ -63,10 +55,14 @@ namespace CommonLib.Collections
 
 				//address negative case
 				if (index < 0) {
-					if (!_negativeIndices.ContainsKey(index))
-						_negativeIndices.Add(index, value);
+					if (this.AllowNegativeIndices) {
+						if (!_negativeIndices.ContainsKey(index))
+							_negativeIndices.Add(index, value);
+						else
+							_negativeIndices[index] = value;
+					}
 					else
-						_negativeIndices[index] = value;
+						throw new Exception("AllowNegativeIndices set to false. Please set to true if you want to allow negative indices.");
 				}
 			}
 			get {
@@ -118,10 +114,14 @@ namespace CommonLib.Collections
 			this.DefaultReturn = (V)valueSerializer.Deserialize(reader);
 			reader.ReadEndElement();
 
+			reader.ReadStartElement("AllowNegativeIndices");
+			this.AllowNegativeIndices = (bool)valueSerializer.Deserialize(reader);
+			reader.ReadEndElement();
+
 			while (reader.NodeType != System.Xml.XmlNodeType.EndElement) {
 				reader.ReadStartElement("Item");
 
-				reader.ReadStartElement("Key");
+				reader.ReadStartElement("Index");
 				int key = (int)keySerializer.Deserialize(reader);
 				reader.ReadEndElement();
 
@@ -165,10 +165,14 @@ namespace CommonLib.Collections
 			valueSerializer.Serialize(writer, this.DefaultReturn);
 			writer.WriteEndElement();
 
+			writer.WriteStartElement("AllowNegativeIndices");
+			valueSerializer.Serialize(writer, this.AllowNegativeIndices);
+			writer.WriteEndElement();
+
 			foreach (int key in this.Keys) {
 				writer.WriteStartElement("Item");
 
-				writer.WriteStartElement("Key");
+				writer.WriteStartElement("Index");
 				keySerializer.Serialize(writer, key);
 				writer.WriteEndElement();
 

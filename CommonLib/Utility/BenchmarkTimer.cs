@@ -33,7 +33,8 @@ namespace CommonLib.Utility
 			var delta = stop - startBD.DateTime;
 
 			var lbl = "{0}: {1} ms";
-			Console.WriteLine(String.Format(lbl, startBD.Label, delta.TotalMilliseconds));
+			var outp = String.Format(lbl, startBD.Label, delta.TotalMilliseconds);
+			Console.WriteLine(outp);
 			return delta;
 		}
 

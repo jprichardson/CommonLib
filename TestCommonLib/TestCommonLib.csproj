@@ -73,12 +73,14 @@
     <Compile Include="Extensions\RandomExTest.cs" />
     <Compile Include="FlexDictionaryTest.cs" />
     <Compile Include="TestEnvironment.cs" />
+    <Compile Include="Utility\FileUtilTest.cs" />
     <Compile Include="Utility\NumberUtilTest.cs" />
     <Compile Include="Numerical\DataTest.cs" />
     <Compile Include="Extensions\ObjectExTest.cs" />
     <Compile Include="Mvvm\Progress\ProgressViewModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Extensions\StringExTest.cs" />
+    <Compile Include="Utility\ProcessUtilTest.cs" />
     <Compile Include="Utility\StringUtilTest.cs" />
     <Compile Include="Collections\ValueDictionaryTest.cs" />
   </ItemGroup>

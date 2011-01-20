@@ -10,6 +10,19 @@ namespace CommonLib.Utility
 {
 	public static class FileUtil
 	{
+		public static DirectoryInfo CreateDirectory(string path) {
+			var di = new DirectoryInfo(path);
+			if (!di.Exists)
+				di.Create();
+
+			return di;
+		}
+
+		public static void DeleteDirectory(string path) { //just like Unix's rm -rf ;p
+			if (Directory.Exists(path))
+				Directory.Delete(path, true);
+		}
+
 		public static T DeserializeFromBytes<T>(byte[] bytes) {
 			var bf = new BinaryFormatter();
 			Stream s = new MemoryStream(bytes);

@@ -63,6 +63,14 @@ namespace TestCommonLib
 			vd[10000] = true;
 
 			Assert.AreEqual(4, vd.NegativeIndices.Count);
+
+			vd.AllowNegativeIndices = false;
+			bool error = false;
+			try {
+				vd[-1] = true;
+			}
+			catch { error = true; }
+			Assert.IsTrue(error);
 		}
 
 		[TestMethod()]

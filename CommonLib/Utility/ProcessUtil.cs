@@ -9,6 +9,9 @@ namespace CommonLib.Utility
 	public static class ProcessUtil
 	{
 		public static bool IsRunning(string processName) {
+			if (String.IsNullOrWhiteSpace(processName))
+				return false;
+
 			processName = processName.ToLower();
 			if (processName.EndsWith(".exe"))
 				processName = processName.Substring(0, processName.Length - 4);

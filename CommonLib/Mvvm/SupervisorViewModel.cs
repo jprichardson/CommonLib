@@ -37,6 +37,9 @@ namespace CommonLib.Mvvm
  * PROPERTIES
  **********************************************************/
 
+		protected string _infoMessage = "";
+		public string InfoMessage { get { return _infoMessage; } set { _infoMessage = value; base.OnPropertyChanged("InfoMessage"); } }
+
 		private ObservableCollection<ProgressViewModel> _progressViewModels;
 		public ObservableCollection<ProgressViewModel> ProgressViewModels {
 			get {
@@ -136,7 +139,7 @@ namespace CommonLib.Mvvm
 			T workspace = this.FindFirst<T>();
 			if (workspace == null) {
 				workspace = createFunc();
-				this.Workspaces.Add(workspace);
+				this.AddWorkspace(workspace);
 			}
 			return workspace;
 		}
