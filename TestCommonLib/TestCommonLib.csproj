@@ -66,6 +66,7 @@
     <Compile Include="Data\Csv\CsvTest.cs" />
     <Compile Include="Data\Csv\CsvToXmlTest.cs" />
     <Compile Include="Data\Sql\SQLiteBulkInsertTest.cs" />
+    <Compile Include="Extensions\StringBuilderExTest.cs" />
     <Compile Include="Extensions\DictionaryExTest.cs" />
     <Compile Include="Extensions\ListExTest.cs" />
     <Compile Include="Extensions\DateExTest.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Extensions\RandomExTest.cs" />
     <Compile Include="FlexDictionaryTest.cs" />
     <Compile Include="TestEnvironment.cs" />
+    <Compile Include="Utility\DictionaryUtilTest.cs" />
     <Compile Include="Utility\FileUtilTest.cs" />
     <Compile Include="Utility\NumberUtilTest.cs" />
     <Compile Include="Numerical\DataTest.cs" />

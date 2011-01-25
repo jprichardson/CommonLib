@@ -21,5 +21,8 @@ namespace CommonLib.Collections
 		}
 
 		public virtual void GetObjectData(SerializationInfo info, StreamingContext context) { base.GetObjectData(info, context); }
+
+		
 	}
+
 }

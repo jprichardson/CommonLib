@@ -63,11 +63,12 @@
     <Compile Include="Data\Xml\DynamicXElement.cs" />
     <Compile Include="Extensions\DateEx.cs" />
     <Compile Include="Date\DayRange.cs" />
-    <Compile Include="Extensions\DictionaryEx.cs" />
+    <Compile Include="Extensions\IDictionaryEx.cs" />
     <Compile Include="Extensions\IEnumerableEx.cs" />
     <Compile Include="Extensions\ListEx.cs" />
     <Compile Include="Extensions\ObjectEx.cs" />
     <Compile Include="Extensions\RandomEx.cs" />
+    <Compile Include="Extensions\StringBuilderEx.cs" />
     <Compile Include="Extensions\StringEx.cs" />
     <Compile Include="IO\ProcessRunner.cs" />
     <Compile Include="IO\StringWriterUTF8.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Mvvm\ViewModelBase.cs" />
     <Compile Include="Utility\BenchmarkTimer.cs" />
     <Compile Include="Utility\DateTimeUtil.cs" />
+    <Compile Include="Utility\DictionaryUtil.cs" />
     <Compile Include="Utility\FileUtil.cs" />
     <Compile Include="Utility\NumberUtil.cs" />
     <Compile Include="Utility\ProcessUtil.cs" />

@@ -8,8 +8,15 @@ using CommonLib.Utility;
 
 namespace CommonLib.Extensions
 {
-	public static class DictionaryEx
+	public static class IDictionaryEx
 	{
+		public static void Add<TKey,TValue>(this Dictionary<TKey, List<TValue>> dictList, TKey key, TValue value) {
+			if (!dictList.ContainsKey(key))
+				dictList.Add(key, new List<TValue>());
+
+			dictList[key].Add(value);
+		}
+
 		public static string ToXmlString<K,V>(this IDictionary<K, V> self)  {
 			var xmlData = new XElement("Dictionary",
 				from key in self.Keys
@@ -21,6 +28,8 @@ namespace CommonLib.Extensions
 			return StringUtil.XElementToString(xmlData);
 		}
 
-		
+		public static void Save<TKey, TValue>(this IDictionary<TKey, List<TValue>> data, string file) {
+
+		}
 	}
 }

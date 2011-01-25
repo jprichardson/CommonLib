@@ -37,6 +37,8 @@ namespace CommonLib.Mvvm
  * PROPERTIES
  **********************************************************/
 
+		public WorkspaceViewModel CurrentWorkspace { get { return CollectionViewSource.GetDefaultView(this.Workspaces).CurrentItem as WorkspaceViewModel; } }
+
 		protected string _infoMessage = "";
 		public string InfoMessage { get { return _infoMessage; } set { _infoMessage = value; base.OnPropertyChanged("InfoMessage"); } }
 
