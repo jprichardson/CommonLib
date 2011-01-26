@@ -14,8 +14,11 @@ namespace CommonLib.Utility
 		}
 
 		public static List<V> Load<V>(string file, TypeConverter tc) {
-			var sr = new StreamReader(file);
 			var list = new List<V>();
+			if (!File.Exists(file))
+				return list; 
+
+			var sr = new StreamReader(file);
 
 			while (!sr.EndOfStream)
 				list.Add((V)tc.ConvertFromString(sr.ReadLine()));

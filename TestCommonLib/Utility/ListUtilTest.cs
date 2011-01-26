@@ -45,7 +45,15 @@ namespace TestCommonLib
 			Assert.AreEqual(list.Count, newList.Count);
 			for (int x = 0; x < newList.Count; ++x)
 				Assert.AreEqual(list[x], newList[x]);
-			
+
+			var exThrown = false;
+			list = null;
+			try {
+				list = ListUtil.Load<string>(null);
+			}
+			catch { exThrown = true; }
+			Assert.IsFalse(exThrown);
+			Assert.IsNotNull(list);
 		}
 	}
 }

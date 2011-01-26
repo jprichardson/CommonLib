@@ -60,5 +60,23 @@ namespace TestCommonLib
 			catch { ex = true; }
 			Assert.IsTrue(ex);
 		}
+
+		[TestMethod()]
+		public void FirstLineTest() {
+			string target = "Hi JP!!" + Environment.NewLine + "Bye JP!!";
+			Assert.AreEqual("Hi JP!!", target.FirstLine());
+		}
+
+		[TestMethod()]
+		public void IsAlphaNumericTest() {
+			string s = "asdflajsf352q3ajlfasjf";
+			Assert.IsTrue(s.IsAlphaNumeric());
+			s = "45g";
+			Assert.IsTrue(s.IsAlphaNumeric());
+			s = "45-";
+			Assert.IsFalse(s.IsAlphaNumeric());
+			s = "3ABdc";
+			Assert.IsTrue(s.IsAlphaNumeric());
+		}
 	}
 }
