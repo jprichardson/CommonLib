@@ -74,6 +74,7 @@
     <Compile Include="Extensions\RandomExTest.cs" />
     <Compile Include="FlexDictionaryTest.cs" />
     <Compile Include="TestEnvironment.cs" />
+    <Compile Include="Utility\ListUtilTest.cs" />
     <Compile Include="Utility\DictionaryUtilTest.cs" />
     <Compile Include="Utility\FileUtilTest.cs" />
     <Compile Include="Utility\NumberUtilTest.cs" />
