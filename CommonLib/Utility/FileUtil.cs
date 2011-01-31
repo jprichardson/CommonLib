@@ -39,12 +39,26 @@ namespace CommonLib.Utility
 			return ret;
 		}
 
+		public static T ReadFromBinFile<T>(string file, Func<T> defaultReturn) {
+			if (!File.Exists(file))
+				return defaultReturn();
+
+			return ReadFromBinFile<T>(file);
+		}
+
 		public static T ReadFromXmlFile<T>(string file) {
 			XmlSerializer xs = new XmlSerializer(typeof(T));
 			StreamReader sr = new StreamReader(file);
 			T ret = (T)xs.Deserialize(sr);
 			sr.Close();
 			return ret;
+		}
+
+		public static T ReadFromXmlFile<T>(string file, Func<T> defaultReturn) {
+			if (!File.Exists(file))
+				return defaultReturn();
+
+			return ReadFromXmlFile<T>(file);
 		}
 
 		public static void WriteToBinFile<T>(T obj, string file) {
