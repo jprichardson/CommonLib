@@ -54,6 +54,10 @@ namespace TestCommonLib
 			catch { exThrown = true; }
 			Assert.IsFalse(exThrown);
 			Assert.IsNotNull(list);
+
+			//test for empty file
+			var list3 = ListUtil.Load<string>(Path.GetTempFileName());
+			Assert.AreEqual(0, list3.Count);
 		}
 	}
 }

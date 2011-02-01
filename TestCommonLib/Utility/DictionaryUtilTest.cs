@@ -51,6 +51,14 @@ namespace TestCommonLib
 				for (int x = 0; x < newDictList[key].Count; ++x)
 					Assert.AreEqual(dictList[key][x], newDictList[key][x]);
 			}
+
+			//test for file not existing
+			var dictList2 = DictionaryUtil.LoadDictionaryList<string, string>(null);
+			Assert.IsNotNull(dictList2);
+
+			//test for empty file
+			var dictList3 = DictionaryUtil.LoadDictionaryList<string, string>(Path.GetTempFileName());
+			Assert.AreEqual(0, dictList3.Count);
 		}
 
 		[TestMethod()]
@@ -71,6 +79,14 @@ namespace TestCommonLib
 			Assert.AreEqual(dict.Count, newDict.Count);
 			foreach (var key in newDict.Keys)
 				Assert.AreEqual(dict[key], newDict[key]);
+
+			//test for file not existing
+			var dict2 = DictionaryUtil.LoadDictionary<string, string>(null);
+			Assert.IsNotNull(dict2);
+
+			//test for empty file
+			var dict3 = DictionaryUtil.LoadDictionary<string, string>(Path.GetTempFileName());
+			Assert.AreEqual(0, dict3.Count);
 		}
 	}
 }

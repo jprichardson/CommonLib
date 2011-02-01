@@ -20,9 +20,11 @@ namespace CommonLib.Utility
 		}
 
 		public static IDictionary<TKey, List<TValue>> LoadDictionaryList<TKey, TValue>(string file, TypeConverter keyTypeConverter, TypeConverter valueTypeConverter) {
-			var sr = new StreamReader(file);
 			IDictionary<TKey, List<TValue>> dictList = new Dictionary<TKey, List<TValue>>();
+			if (!File.Exists(file))
+				return dictList;
 
+			var sr = new StreamReader(file);
 			while (!sr.EndOfStream) {
 				var fields = Csv.RecordSplit(sr.ReadLine(), ',', '"');
 				TKey key = (TKey)keyTypeConverter.ConvertFromString(fields[0]);
@@ -43,9 +45,11 @@ namespace CommonLib.Utility
 		}
 
 		public static IDictionary<TKey, TValue> LoadDictionary<TKey, TValue>(string file, TypeConverter keyTypeConverter, TypeConverter valueTypeConverter) {
-			var sr = new StreamReader(file);
 			IDictionary<TKey, TValue> dict = new Dictionary<TKey, TValue>();
+			if (!File.Exists(file))
+				return dict;
 
+			var sr = new StreamReader(file);
 			while (!sr.EndOfStream) {
 				var fields = Csv.RecordSplit(sr.ReadLine(), ',', '"');
 				TKey key = (TKey)keyTypeConverter.ConvertFromString(fields[0]);
