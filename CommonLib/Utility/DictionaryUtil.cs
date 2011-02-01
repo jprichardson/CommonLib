@@ -13,35 +13,54 @@ namespace CommonLib.Utility
 	public static class DictionaryUtil
 	{
 		public static IDictionary<TKey, List<TValue>> LoadDictionaryList<TKey, TValue>(string file) {
-			var sr = new StreamReader(file);
-			//var line = sr.ReadLine();
-			//var types = line.Split(',');
 			var keyConverter = TypeDescriptor.GetConverter(typeof(TKey)/*Type.GetType(types[0])*/);
 			var valueConverter = TypeDescriptor.GetConverter(typeof(TValue));
 
+			return LoadDictionaryList<TKey, TValue>(file, keyConverter, valueConverter);
+		}
+
+		public static IDictionary<TKey, List<TValue>> LoadDictionaryList<TKey, TValue>(string file, TypeConverter keyTypeConverter, TypeConverter valueTypeConverter) {
+			var sr = new StreamReader(file);
 			IDictionary<TKey, List<TValue>> dictList = new Dictionary<TKey, List<TValue>>();
 
 			while (!sr.EndOfStream) {
 				var fields = Csv.RecordSplit(sr.ReadLine(), ',', '"');
-				TKey key = (TKey)keyConverter.ConvertFromString(fields[0]);
+				TKey key = (TKey)keyTypeConverter.ConvertFromString(fields[0]);
 				for (int i = 1; i < fields.Length; ++i) {
-					TValue value = (TValue)valueConverter.ConvertFromString(fields[i]);
+					TValue value = (TValue)valueTypeConverter.ConvertFromString(fields[i]);
 					if (!dictList.ContainsKey(key))
 						dictList.Add(key, new List<TValue>());
 
 					dictList[key].Add(value);
 				}
-					
 			}
 
 			return dictList;
 		}
 
+		public static IDictionary<TKey, TValue> LoadDictionary<TKey, TValue>(string file) {
+			return LoadDictionary<TKey, TValue>(file, TypeDescriptor.GetConverter(typeof(TKey)), TypeDescriptor.GetConverter(typeof(TValue)));
+		}
+
+		public static IDictionary<TKey, TValue> LoadDictionary<TKey, TValue>(string file, TypeConverter keyTypeConverter, TypeConverter valueTypeConverter) {
+			var sr = new StreamReader(file);
+			IDictionary<TKey, TValue> dict = new Dictionary<TKey, TValue>();
+
+			while (!sr.EndOfStream) {
+				var fields = Csv.RecordSplit(sr.ReadLine(), ',', '"');
+				TKey key = (TKey)keyTypeConverter.ConvertFromString(fields[0]);
+				TValue value = (TValue)valueTypeConverter.ConvertFromString(fields[1]);
+
+				dict.Add(key, value);
+			}
+
+			return dict;
+		}
+
 		public static void SaveDictionaryList<TKey, TValue>(this IDictionary<TKey, List<TValue>> dictList, string file) {
 			var sw = new StreamWriter(file);
-			//sw.WriteLine(typeof(TKey) + "," + typeof(TValue));
+			var sb = new StringBuilder(255);
 			foreach (var key in dictList.Keys) {
-				var sb = new StringBuilder(255);
 				sb.Append('"');
 				sb.Append(key);
 				sb.Append("\",");
@@ -53,6 +72,23 @@ namespace CommonLib.Utility
 				sb.RemoveLastChar();
 
 				sw.WriteLine(sb.ToString());
+				sb.Clear();
+			}
+			sw.Close();
+		}
+
+		public static void SaveDictionary<TKey, TValue>(this IDictionary<TKey, TValue> self, string file) {
+			var sw = new StreamWriter(file);
+			var sb = new StringBuilder(255);
+			foreach (var key in self.Keys) {
+				sb.Append('"');
+				sb.Append(key);
+				sb.Append("\",\"");
+				sb.Append(self[key]);
+				sb.Append('"');
+
+				sw.WriteLine(sb.ToString());
+				sb.Clear();
 			}
 			sw.Close();
 		}

@@ -52,5 +52,25 @@ namespace TestCommonLib
 					Assert.AreEqual(dictList[key][x], newDictList[key][x]);
 			}
 		}
+
+		[TestMethod()]
+		public void LoadSaveDictionaryTest() {
+			var dict = new Dictionary<string, DateTime>();
+
+			var dt = DateTime.Now.TrimMilliseconds();
+			dict.Add("1", dt);
+			dict.Add("2", dt.AddMinutes(1));
+			dict.Add("3", dt.AddMinutes(2));
+
+			var file = Path.GetTempFileName();
+
+			DictionaryUtil.SaveDictionary(dict, file);
+
+			var newDict = DictionaryUtil.LoadDictionary<string, DateTime>(file);
+
+			Assert.AreEqual(dict.Count, newDict.Count);
+			foreach (var key in newDict.Keys)
+				Assert.AreEqual(dict[key], newDict[key]);
+		}
 	}
 }
