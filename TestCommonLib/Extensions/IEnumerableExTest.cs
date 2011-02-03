@@ -1,6 +1,7 @@
 ﻿using CommonLib.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace TestCommonLib
@@ -20,6 +21,18 @@ namespace TestCommonLib
 			}
 		}
 
+		[TestMethod()]
+		public void DifferenceTest() {
+			var a = new[] { 1, 2, 3, 4, 5, 6, 7 };
+			var b = new[] { 4, 5, 6, 7, 8, 9, 10 };
+
+			IEnumerable<int> expected = new[] { 1, 2, 3, 8, 9, 10 };
+			var result = a.Difference(b);
+
+			Assert.AreEqual(expected.Count(), result.Count());
+			for (int x = 0; x < expected.Count(); ++x)
+				Assert.AreEqual(expected.ElementAt(x), result.ElementAt(x));
+		}
 
 		[TestMethod()]
 		public void StandardDeviationTest() {
