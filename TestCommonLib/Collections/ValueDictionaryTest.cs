@@ -95,5 +95,26 @@ namespace TestCommonLib
 			Assert.AreEqual(3, vd2.Count);
 			Assert.IsTrue(vd2.DefaultReturn);
 		}
+
+		[TestMethod()]
+		public void NegativeIndicesSerializationRegressionTest() {
+			var vd = new ValueDictionary<bool>(true);
+			vd[0] = true;
+			vd[1] = true;
+			vd[-1] = true;
+			Assert.AreEqual(1, vd.NegativeIndices.Count); 
+
+			var txtFile = Path.GetTempFileName();
+			vd.Save(txtFile);
+
+			var vd2 = ValueDictionary<bool>.Load(txtFile);
+			Assert.AreEqual(1, vd2.NegativeIndices.Count);
+
+			var xmlFile = Path.GetTempFileName();
+			FileUtil.WriteToXmlFile(vd, xmlFile);
+
+			var vd3 = FileUtil.ReadFromXmlFile<ValueDictionary<bool>>(xmlFile);
+			Assert.AreEqual(1, vd3.NegativeIndices.Count);
+		}
 	}
 }

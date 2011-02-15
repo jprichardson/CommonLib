@@ -44,8 +44,6 @@ namespace CommonLib.Collections
 		public V DefaultReturn { get; set; }
 		public bool AllowNegativeIndices { get; set; }
 
-		
-
 		public new V this[int index] {
 			set {
 				if (!this.ContainsKey(index))
@@ -93,7 +91,7 @@ namespace CommonLib.Collections
 			while (!sr.EndOfStream) {
 				var line = sr.ReadLine();
 				var data = line.Split(',');
-				bd.Add(Convert.ToInt32(data[0]), (V)_converter.ConvertFromString(data[1]));
+				bd[Convert.ToInt32(data[0])] = (V)_converter.ConvertFromString(data[1]);
 			}
 			sr.Close();
 
@@ -129,7 +127,7 @@ namespace CommonLib.Collections
 				V value = (V)valueSerializer.Deserialize(reader);
 				reader.ReadEndElement();
 
-				this.Add(key, value);
+				this[key] = value;
 
 				reader.ReadEndElement();
 				reader.MoveToContent();
