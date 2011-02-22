@@ -90,6 +90,7 @@
     <Compile Include="Utility\FileUtil.cs" />
     <Compile Include="Utility\ListUtil.cs" />
     <Compile Include="Utility\NumberUtil.cs" />
+    <Compile Include="Utility\PathUtil.cs" />
     <Compile Include="Utility\ProcessUtil.cs" />
     <Compile Include="Utility\StringUtil.cs" />
   </ItemGroup>
