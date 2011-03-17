@@ -55,6 +55,59 @@ namespace CommonLib.Extensions
 			return s[0].ToString().ToUpper() + s.Substring(1).ToLower();
 		}
 
+		public static string RemoveLastChar(this string self) {
+			if (self.Length >= 1)
+				return self.Remove(self.Length - 1, 1);
+			else
+				return self;
+		}
+
+		public static IEnumerable<string> SplitAt(this string self, params int[] positions) {
+			var ret = new List<string>();
+
+			if (positions == null) { ret.Add(self); return ret; }
+
+			var poses = positions.Distinct().OrderBy(n => n).ToList();
+
+			var indicesToRemove = new Queue<int>();
+			var total = poses.Count();
+			var i = 0;
+			while (i < total){
+				if ((poses[i] <= 0) || (poses[i] >= self.Length))
+					indicesToRemove.Enqueue(poses[i]);
+				++i;
+			}
+
+			while (indicesToRemove.Count > 0)
+				poses.Remove(indicesToRemove.Dequeue());
+
+			switch (poses.Count) {
+				case 0:
+					ret.Add(self); return ret;
+				case 1:
+					ret.Add(self.Substring(0, poses[0])); ret.Add(self.Substring(poses[0], self.Length - poses[0])); return ret;
+				default:
+					var sb = new StringBuilder(255);
+					var pos1 = 0;
+					var len = poses[0];
+					ret.Add(self.Substring(pos1, len));
+
+					pos1 = poses[0];
+					for (int j = 1; j <= poses.Count; ++j) {
+						if (j == poses.Count)
+							len = self.Length - poses[j -1];
+						else
+							len = poses[j] - poses[j - 1];
+						
+						ret.Add(self.Substring(pos1, len));
+
+						if (j < poses.Count)
+							pos1 = poses[j];
+					}
+					return ret;
+			}
+		}
+
 		public static string TrimEnd(this string self, int len) {
 			return self.Substring(0, self.Length - len);
 		}
