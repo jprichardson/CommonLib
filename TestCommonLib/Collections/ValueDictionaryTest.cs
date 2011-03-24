@@ -116,5 +116,23 @@ namespace TestCommonLib
 			var vd3 = FileUtil.ReadFromXmlFile<ValueDictionary<bool>>(xmlFile);
 			Assert.AreEqual(1, vd3.NegativeIndices.Count);
 		}
+
+		[TestMethod()]
+		public void AllowDefaultReturnsTest() {
+			var vd = new ValueDictionary<bool>();
+			Assert.IsFalse(vd[0]);
+
+			vd.AllowDefaultReturns = false;
+			bool error = false;
+			try {
+				Assert.IsFalse(vd[0]);
+				Assert.IsFalse(vd[1]);
+			}
+			catch {
+				error = true;
+			}
+
+			Assert.IsTrue(error);
+		}
 	}
 }

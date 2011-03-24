@@ -18,6 +18,7 @@ namespace CommonLib.Collections
 
 		public ValueDictionary() : base() {
 			this.AllowNegativeIndices = true;
+			this.AllowDefaultReturns = true;
 			if (_converter == null)
 				throw new Exception("Can't use ValueDictionary with " + _type);
 		}
@@ -25,6 +26,7 @@ namespace CommonLib.Collections
 		public ValueDictionary(V defaultReturn) : base() {
 			this.AllowNegativeIndices = true;
 			this.DefaultReturn = defaultReturn;
+			this.AllowDefaultReturns = true;
 
 			if (_converter == null)
 				throw new Exception("Can't use ValueDictionary with " + _type);
@@ -33,6 +35,7 @@ namespace CommonLib.Collections
 		public ValueDictionary(IDictionary<int, V> vdict, V defaultReturn) : base(vdict) {
 			this.DefaultReturn = defaultReturn;
 			this.AllowNegativeIndices = true;
+			this.AllowDefaultReturns = true;
 
 			if (_converter == null)
 				throw new Exception("Can't use ValueDictionary with " + _type);
@@ -43,6 +46,7 @@ namespace CommonLib.Collections
 		
 		public V DefaultReturn { get; set; }
 		public bool AllowNegativeIndices { get; set; }
+		public bool AllowDefaultReturns { get; set; }
 
 		public new V this[int index] {
 			set {
@@ -65,7 +69,10 @@ namespace CommonLib.Collections
 			}
 			get {
 				if (!this.ContainsKey(index))
-					return this.DefaultReturn;
+					if (this.AllowDefaultReturns)
+						return this.DefaultReturn;
+					else
+						throw new Exception("AllowDefault returns set to false. Please set to true if you want to allow default returns.");
 				else
 					return base[index];
 			}
