@@ -10,6 +10,15 @@ namespace CommonLib.Utility
 {
 	public static class FileUtil
 	{
+		public static string ChangeExtension(string fileName, string newExt) {
+			if (!newExt.StartsWith("."))
+				newExt = "." + newExt;
+
+			var oldExt = Path.GetExtension(fileName);
+			fileName = fileName.Replace(oldExt, newExt);
+			return fileName;
+		}
+
 		public static DirectoryInfo CreateDirectory(string path) {
 			var di = new DirectoryInfo(path);
 			if (!di.Exists)

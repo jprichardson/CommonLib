@@ -60,5 +60,14 @@ namespace TestCommonLib
 			Assert.IsFalse(exThrown); //shouldn't throw exception because it only deletes if it exists
 
 		}
+
+		[TestMethod()]
+		public void ChangeExtensionText() {
+			var file = @"C:\WeirdDirName.doc\file.txt";
+			Assert.AreEqual(@"C:\WeirdDirName.doc\file.doc", FileUtil.ChangeExtension(file, "doc"));
+			Assert.AreEqual(@"C:\WeirdDirName.doc\file.doc", FileUtil.ChangeExtension(file, ".doc"));
+			Assert.AreEqual(".doc", Path.GetExtension(FileUtil.ChangeExtension(file, ".doc")));
+
+		}
 	}
 }
