@@ -32,7 +32,7 @@ namespace TestCommonLib
 			Assert.AreEqual(new DateTime(1983, 4, 5), vd2.DefaultReturn);
 		}
 
-		[TestMethod()]
+		/*[TestMethod()]
 		public void SaveLoadTest() {
 			var vd = new ValueDictionary<bool>(true);
 			vd[1] = true;
@@ -50,7 +50,7 @@ namespace TestCommonLib
 			Assert.IsFalse(vd2[-100]);
 			Assert.AreEqual(3, vd2.Count);
 			Assert.IsTrue(vd2.DefaultReturn);
-		}
+		}*/
 
 		[TestMethod()]
 		public void NegativeIndicesTest() {
@@ -105,9 +105,11 @@ namespace TestCommonLib
 			Assert.AreEqual(1, vd.NegativeIndices.Count); 
 
 			var txtFile = Path.GetTempFileName();
-			vd.Save(txtFile);
+			//vd.Save(txtFile);
+			FileUtil.WriteToXmlFile(vd, txtFile);
 
-			var vd2 = ValueDictionary<bool>.Load(txtFile);
+			//var vd2 = ValueDictionary<bool>.Load(txtFile);
+			var vd2 = FileUtil.ReadFromXmlFile<ValueDictionary<bool>>(txtFile);
 			Assert.AreEqual(1, vd2.NegativeIndices.Count);
 
 			var xmlFile = Path.GetTempFileName();

@@ -89,7 +89,7 @@ namespace CommonLib.Collections
 			}
 		}
 
-		public static ValueDictionary<V> Load(string file) {
+		/*public static ValueDictionary<V> Load(string file) {
 			var sr = new StreamReader(file);
 
 			V defaultReturn = (V)_converter.ConvertFromString(sr.ReadLine());
@@ -103,7 +103,7 @@ namespace CommonLib.Collections
 			sr.Close();
 
 			return bd;
-		}
+		}*/
 
 		public void ReadXml(XmlReader reader) {
 			XmlSerializer keySerializer = new XmlSerializer(typeof(int));
@@ -115,13 +115,26 @@ namespace CommonLib.Collections
 			if (wasEmpty)
 				return;
 
-			reader.ReadStartElement("DefaultReturn");
-			this.DefaultReturn = (V)valueSerializer.Deserialize(reader);
-			reader.ReadEndElement();
+			try {
+				reader.ReadStartElement("DefaultReturn");
+				this.DefaultReturn = (V)valueSerializer.Deserialize(reader);
+				reader.ReadEndElement();
+			}
+			catch (XmlException ex) { }
 
-			reader.ReadStartElement("AllowNegativeIndices");
-			this.AllowNegativeIndices = (bool)valueSerializer.Deserialize(reader);
-			reader.ReadEndElement();
+			try {
+				reader.ReadStartElement("AllowNegativeIndices");
+				this.AllowNegativeIndices = (bool)valueSerializer.Deserialize(reader);
+				reader.ReadEndElement();
+			}
+			catch (XmlException ex) { }
+
+			try {
+				reader.ReadStartElement("AllowDefaultReturns");
+				this.AllowDefaultReturns = (bool)valueSerializer.Deserialize(reader);
+				reader.ReadEndElement();
+			}
+			catch (XmlException ex) { }
 
 			while (reader.NodeType != System.Xml.XmlNodeType.EndElement) {
 				reader.ReadStartElement("Item");
@@ -151,7 +164,7 @@ namespace CommonLib.Collections
 					_negativeIndices.Remove(index);
 		}
 
-		public void Save(string file) {
+		/*public void Save(string file) {
 			var fs = new FileStream(file, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
 			var sw = new StreamWriter(fs);
 			sw.WriteLine(this.DefaultReturn);
@@ -160,7 +173,7 @@ namespace CommonLib.Collections
 				sw.WriteLine("{0},{1}", k, base[k].ToString());
 
 			sw.Close();
-		}
+		}*/
 
 		public void WriteXml(XmlWriter writer) {
 			XmlSerializer keySerializer = new XmlSerializer(typeof(int));
@@ -172,6 +185,10 @@ namespace CommonLib.Collections
 
 			writer.WriteStartElement("AllowNegativeIndices");
 			valueSerializer.Serialize(writer, this.AllowNegativeIndices);
+			writer.WriteEndElement();
+
+			writer.WriteStartElement("AllowDefaultReturns");
+			valueSerializer.Serialize(writer, this.AllowDefaultReturns);
 			writer.WriteEndElement();
 
 			foreach (int key in this.Keys) {
