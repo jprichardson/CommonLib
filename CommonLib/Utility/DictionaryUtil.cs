@@ -37,6 +37,8 @@ namespace CommonLib.Utility
 				}
 			}
 
+			sr.Close();
+
 			return dictList;
 		}
 
@@ -57,6 +59,8 @@ namespace CommonLib.Utility
 
 				dict.Add(key, value);
 			}
+
+			sr.Close();
 
 			return dict;
 		}
