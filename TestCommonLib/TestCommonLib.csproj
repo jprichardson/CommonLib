@@ -87,6 +87,7 @@
     <Compile Include="Utility\ProcessUtilTest.cs" />
     <Compile Include="Utility\StringUtilTest.cs" />
     <Compile Include="Collections\ValueDictionaryTest.cs" />
+    <Compile Include="Numerical\XYDataSetTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CommonLib\CommonLib.csproj">
