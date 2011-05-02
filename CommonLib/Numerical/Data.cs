@@ -54,6 +54,11 @@ namespace CommonLib.Numerical
 			return Math.Abs(top / bot);
 		}
 
+		//
+		public static double PercentChange(double newX, double oldX) {
+			return (newX - oldX) / oldX;
+		}
+
 		public static double PercentError(double experimental, double theoretical) {
 			return (experimental - theoretical) / theoretical;
 		}
