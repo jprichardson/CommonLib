@@ -60,11 +60,16 @@ namespace CommonLib.Numerical
 		public PointD RegressionPoint0 { get; protected set; }
 		public PointD RegressionPointN { get; protected set; }
 
+		public double ResidualStandardDeviation { get; protected set; }
+
 		public double Slope { get; protected set; }
 
 		public double XSum { get; set; }
 		public double YSum { get; set; }
+		
 		public double XSquaredSum { get; set; }
+		public double YSquaredSum { get; set; }
+		
 		public double XYProductSum { get; set; }
 
 		public double XIntercept { get { return -YIntercept / Slope; } }
@@ -114,11 +119,25 @@ namespace CommonLib.Numerical
 			RegressionPointN.Y = Slope * XMax + YIntercept;
 		}
 
+		public void ComputeResiduals() {
+			for (int i = 0; i < Count; ++i) {
+				var yline = Slope * _internalList[i].X + YIntercept;
+				var ydelta = _internalList[i].Y - yline;
+				_internalList[i].Residual = ydelta;
+			}
+		}
+
 		public double ComputeRSquared() {
 			var SStot = _internalList.Sum(p => Math.Pow(p.Y - YMean, 2.0));
 			var SSerr = _internalList.Sum(p => Math.Pow(p.Y - (Slope * p.X + YIntercept), 2.0));
 			RSquare = 1.0 - SSerr / SStot;
 			return RSquare;
+		}
+
+		public double ComputeStandardDeviationOnResiduals(){
+			var res = _internalList.Select(p => p.Residual);
+			ResidualStandardDeviation = Data.StandardDeviation(res.ToArray());
+			return ResidualStandardDeviation;
 		}
 
 		public bool Contains(PointD p) {
@@ -127,6 +146,24 @@ namespace CommonLib.Numerical
 
 		public void CopyTo(PointD[] points, int index) {
 			_internalList.CopyTo(points, index);
+		}
+
+		public IEnumerable<PointD> FilterByResidualStandardDeviation(double multiplier) {
+			var filter = multiplier * ResidualStandardDeviation;
+			var keep = new List<PointD>();
+			var reject = new List<PointD>();
+
+			foreach (var p in _internalList)
+				if (Math.Abs(p.Residual) < filter)
+					keep.Add(p);
+				else
+					reject.Add(p);
+
+			Clear();
+			foreach (var p in keep)
+				Add(p);
+
+			return reject;
 		}
 
 		public IEnumerator<PointD> GetEnumerator() {
@@ -206,12 +243,14 @@ namespace CommonLib.Numerical
 				XSum += p.X;
 				YSum += p.Y;
 				XSquaredSum += Math.Pow(p.X, 2.0);
+				YSquaredSum += Math.Pow(p.Y, 2.0);
 				XYProductSum += (p.X * p.Y);
 			}
 			else if (mode == SumMode.Subtract) {
 				XSum -= p.X;
 				YSum -= p.Y;
 				XSquaredSum -= Math.Pow(p.X, 2.0);
+				YSquaredSum -= Math.Pow(p.Y, 2.0);
 				XYProductSum -= (p.X * p.Y);
 			}
 		}

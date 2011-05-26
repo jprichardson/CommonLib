@@ -13,6 +13,9 @@ namespace CommonLib.Geometry
 
 		public double X;
 		public double Y;
+		public double Residual;
+
+		public object Tag; //extra data
 
 		public override bool Equals(object obj) {
 			var p = obj as PointD;

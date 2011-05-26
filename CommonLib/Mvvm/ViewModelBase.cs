@@ -20,17 +20,7 @@ namespace CommonLib.Mvvm
         /// Child classes can set this property to a new value,
         /// or override it to determine the value on-demand.
         /// </summary>
-        public virtual string DisplayName { get; set; }
-
-
-		/*private string _displayName = "";
-		public string DisplayName {
-			get { return _displayName; }
-			set {
-				_displayName = value;
-				this.OnPropertyChanged("DisplayName");
-			}
-		}*/
+		public virtual string DisplayName { get; set; }
 
 		public Action<string, string> PromptDialog { get; set; }
 
