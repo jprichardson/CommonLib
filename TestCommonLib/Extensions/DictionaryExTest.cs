@@ -71,5 +71,22 @@ namespace TestCommonLib
 			Assert.AreEqual(xml, dict3.ToXmlString());
 		}
 
+		[TestMethod()]
+		public void RemoveAllTest() {
+			var sd = new SortedDictionary<string, int>();
+			sd.Add("first", 1);
+			sd.Add("second", 2);
+			sd.Add("third", 3);
+
+			var keysToRemove = new List<string>();
+			keysToRemove.Add("first");
+			keysToRemove.Add("third");
+
+			Assert.AreEqual(3, sd.Count);
+			sd.RemoveAll(keysToRemove);
+			Assert.AreEqual(1, sd.Count);
+
+			Assert.AreEqual(2, sd["second"]);
+		}
 	}
 }

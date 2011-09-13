@@ -73,6 +73,7 @@
     <Compile Include="Extensions\IEnumerableExTest.cs" />
     <Compile Include="Extensions\RandomExTest.cs" />
     <Compile Include="FlexDictionaryTest.cs" />
+    <Compile Include="Mvvm\MessengerCenterTest.cs" />
     <Compile Include="Utility\PathUtilTest.cs" />
     <Compile Include="TestEnvironment.cs" />
     <Compile Include="Utility\ListUtilTest.cs" />

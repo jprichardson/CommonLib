@@ -1,0 +1,10 @@
+C#/.NET CommonLib
+-----------------
+
+Common methods needed for my .NET development.
+
+This is LGPL licensed.
+
+:localdate: {sys date +%Y-%m-%d}
+
+{localdate}

@@ -73,6 +73,7 @@
     <Compile Include="Geometry\PointD.cs" />
     <Compile Include="IO\ProcessRunner.cs" />
     <Compile Include="IO\StringWriterUTF8.cs" />
+    <Compile Include="Mvvm\MessengerCenter.cs" />
     <Compile Include="Mvvm\Progress\ProgressViewModel.cs" />
     <Compile Include="Mvvm\ModelBase.cs" />
     <Compile Include="Mvvm\Progress\ProgressTaskViewModel.cs" />

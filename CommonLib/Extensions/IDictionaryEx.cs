@@ -28,6 +28,11 @@ namespace CommonLib.Extensions
 			return StringUtil.XElementToString(xmlData);
 		}
 
+		public static void RemoveAll<K, V>(this IDictionary<K, V> self, IEnumerable<K> keys) {
+			foreach (var key in keys)
+				self.Remove(key);
+		}
+
 		public static void Save<TKey, TValue>(this IDictionary<TKey, List<TValue>> data, string file) {
 
 		}
