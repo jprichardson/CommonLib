@@ -119,6 +119,50 @@ namespace TestCommonLib
 		}
 
 		[TestMethod()]
+		public void Convert2Test() {
+
+			var columnNames = "Product;Price;DateStocked;";
+			var data = "Pepsi;4.50;2010-05-04;\nCoke;3.00;2010-09-22;\nCheetos;7.25;2009-01-13;";
+
+			var csvWithColumnNamesFile = TestEnvironment.DataPath + "csv-columnNames.csv";
+			var csvFile = TestEnvironment.DataPath + "csv.csv";
+
+			File.WriteAllText(csvWithColumnNamesFile, columnNames + "\n" + data);
+			File.WriteAllText(csvFile, data);
+
+			string xmlHeader = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
+
+			string xmlWithColumnNames = xmlHeader +
+@"<Records>
+	<Record>
+		<Product>Pepsi</Product>
+		<Price>4.50</Price>
+		<DateStocked>2010-05-04</DateStocked>
+	</Record>
+	<Record>
+		<Product>Coke</Product>
+		<Price>3.00</Price>
+		<DateStocked>2010-09-22</DateStocked>
+	</Record>
+	<Record>
+		<Product>Cheetos</Product>
+		<Price>7.25</Price>
+		<DateStocked>2009-01-13</DateStocked>
+	</Record>
+</Records>";
+
+			var csvWithColumnNames = new CsvToXml(csvWithColumnNamesFile);
+			csvWithColumnNames.RecordDelimiter = ';'; csvWithColumnNames.TextQualifier = null;
+			csvWithColumnNames.HasColumnNames = true;
+			csvWithColumnNames.Convert();
+
+			string actualXmlWithColumnNames = csvWithColumnNames.XmlString;
+
+			Assert.AreEqual(xmlWithColumnNames, actualXmlWithColumnNames);
+
+		}
+
+		[TestMethod()]
 		public void RecordsTest() {
 			var columnNames = "'Product','Price','DateStocked'";
 			var data = "'Pepsi','4.50','2010-05-04'\n'Coke','3.00','2010-09-22'\n'Cheetos','7.25','2009-01-13'";

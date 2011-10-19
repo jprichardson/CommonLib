@@ -34,7 +34,7 @@ namespace TestCommonLib
 		}
 
 		[TestMethod()]
-		public void MessengerCenterTest() {
+		public void MessengerCenterObjTest() {
 			var mc = new MessengerCenter();
 			
 			mc.Subscribe(this, "msg1", (msg) =>

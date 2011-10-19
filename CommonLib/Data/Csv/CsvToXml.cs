@@ -74,7 +74,19 @@ namespace CommonLib.Data.Csv
 		}
 
 		public void Convert() {
-			var tempLines = File.ReadAllLines(this.CsvFile);
+			var tempFileLines = new List<string>();
+			var sr = new StreamReader(this.CsvFile);
+			var sb = new StringBuilder(255);
+			while (!sr.EndOfStream) {
+				sb.Append(sr.ReadLine());
+				if (sb[sb.Length - 1] == this.RecordDelimiter)
+					sb.Remove(sb.Length - 1, 1);
+				tempFileLines.Add(sb.ToString());
+				sb.Clear();
+			}
+			sr.Close();
+
+			var tempLines = tempFileLines.ToArray();
 			string[] lines = null;
 			_columnNames = null;
 
